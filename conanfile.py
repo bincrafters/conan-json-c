@@ -11,6 +11,7 @@ class JSONCConan(ConanFile):
     description = "JSON-C - A JSON implementation in C"
     url = "https://github.com/bincrafters/conan-json-c"
     homepage = "https://github.com/json-c/json-c"
+    author = "Bincrafters <bincrafters@gmail.com>"
     license = "MIT"
     exports = ["LICENSE.md"]
     exports_sources = ["CMakeLists.txt", "json-c.patch"]
