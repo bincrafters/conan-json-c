@@ -38,8 +38,6 @@ class JSONCConan(ConanFile):
 
     def configure_cmake(self):
         cmake = CMake(self)
-        if self.settings.os != 'Windows':
-            cmake.definitions['CMAKE_POSITION_INDEPENDENT_CODE'] = self.options.fPIC
         cmake.configure(build_folder=self.build_subfolder)
         return cmake
 
