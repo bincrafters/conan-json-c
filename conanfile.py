@@ -7,7 +7,7 @@ import os
 
 class JSONCConan(ConanFile):
     name = "json-c"
-    version = "0.13.1"
+    version = "0.13.1-20180305"
     description = "JSON-C - A JSON implementation in C"
     url = "https://github.com/bincrafters/conan-json-c"
     homepage = "https://github.com/json-c/json-c"
@@ -37,6 +37,11 @@ class JSONCConan(ConanFile):
         tools.patch(base_path=self.source_subfolder, patch_file="json-c.patch")
 
     def configure_cmake(self):
+        if tools.cross_building(self.settings) and self.settings.os != "Windows":
+            host = tools.get_gnu_triplet(str(self.settings.os), str(self.settings.arch))
+            tools.replace_in_file(os.path.join(self.source_subfolder, "CMakeLists.txt"),
+                                  "execute_process(COMMAND ./configure ",
+                                  "execute_process(COMMAND ./configure --host %s " % host)
         cmake = CMake(self)
         cmake.configure(build_folder=self.build_subfolder)
         return cmake
